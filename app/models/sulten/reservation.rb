@@ -14,6 +14,7 @@ class Sulten::Reservation < ApplicationRecord
   validates :gdpr_checkbox, acceptance: true
 
   validate :check_opening_hours, :check_amount_of_people,
+           :check_table_availability,
            :reservation_is_one_day_in_future,
            :email, on: :create, unless: :admin_access
 
@@ -73,6 +74,22 @@ class Sulten::Reservation < ApplicationRecord
     elsif people < 1
       errors.add(:people, I18n.t('helpers.models.sulten.reservation.errors.people.too_few_people'))
     end
+  end
+
+  # Check if there are any available tables that have the correct type and capacity, and that are
+  # available in the time range for this reservation.
+  def check_table_availability
+    available_times = Sulten::Reservation.find_available_times(
+      reservation_from.to_s,
+      reservation_duration,
+      people,
+      reservation_type.id
+    )
+
+    # Convert to UTC because `available_times` are all in UTC (implementation detail)
+    from_parsed = Time.zone.at(reservation_from).utc
+    error_message = I18n.t('helpers.models.sulten.reservation.errors.reservation_from.no_table_available_contact')
+    errors.add(:reservation_from, error_message) unless available_times.include?(from_parsed)
   end
 
   def first_name

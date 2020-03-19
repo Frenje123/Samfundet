@@ -17,6 +17,7 @@
             creation_fail: "reservasjonen kunne ikke bli opprettet"
             update_fail: "reservasjonen kunne ikke bli opprettet"
             reservation_from:
+              no_table_available_contact: "Det er ingen ledige bord for dette tidsrommet, vennligst send e-post til lyche@samfundet.no"
               no_table_available: "det er ingen bord ledige for dette tidsrommet"
               reservation_is_one_day_in_future: "reservasjoner må sendes inn senest dagen før"
               check_opening_hours: "Lyche er lukket under dette tidsrommet"

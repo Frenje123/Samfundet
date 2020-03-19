@@ -17,6 +17,7 @@ en:
             creation_fail: "the reservation could not be created"
             update_fail: "the reservation could not be updated"
             reservation_from:
+              no_table_available_contact: "There are no tables available for the given time period, please send an email to lyche@samfundet.no"
               no_table_available: "there are no tables available at the the given period of time"
               reservation_is_one_day_in_future: "reservations must be made at least one day in advance"
               check_opening_hours: "Lyche is closed during the given period of time"
